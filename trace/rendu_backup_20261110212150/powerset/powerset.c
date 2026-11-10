@@ -5,43 +5,36 @@
 typedef struct s_powerset
 {
 	int	*candi;
-	int	candi_idx;
 	int	argc;
 	char	**argv;
-	int	arg_idx;
-	int	prefix;
 }t_powerset;
 
 
-void	recurs(t_powerset *t)
+void	recurs(t_powerset *t, int arg_idx, int candi_idx, int prefix)
 {
 	int	target = atoi(t->argv[1]);
 
-	if (t->prefix == target)
+	if (prefix == target)
 	{
 		int	i = 0;
-		while (i < t->argc && t->candi[i] != -1)
+		while (i < candi_idx)
 		{
-			if ( t->candi[i + 1] == -1)
-				fprintf(stdout, "%s\n", t->argv[ t->candi[i]]);
+			if (i == candi_idx - 1)
+				fprintf(stdout, "%s\n", t->argv[t->candi[i]]);
 			else
 				fprintf(stdout, "%s ", t->argv[ t->candi[i]]);
 			i++;
 		}
+		if (i == 0 && target == 0)
+			fprintf(stdout, "\n");
 	}
-	for (int i = t->arg_idx; i < t->argc; i++)
+	for (int i = arg_idx; i < t->argc; i++)
 	{
 		int k;
 		k = atoi(t->argv[i]);
-		t->prefix += k;
-		t->arg_idx = i + 1;
-		t->candi_idx++;
-		t->candi[t->candi_idx] = i;
-		recurs(t);
-		t->prefix -= k;
-		t->arg_idx = i - 1;
-		t->candi[t->candi_idx] = -1;
-		t->candi_idx--;
+		t->candi[candi_idx] = i;
+		recurs(t, i + 1, candi_idx + 1, prefix + k);
+		t->candi[candi_idx] = -1;
 	}
 }
 
@@ -66,12 +59,10 @@ int	main(int argc, char **argv)
 		free(candikeys);
 		return (1);
 	}
-	tt->prefix = 0;
-	tt->arg_idx = 2;
 	tt->argc = argc;
 	tt->argv = argv;
 	tt->candi = candikeys;
-	tt->prefix = 0;
-	recurs(tt);
-
+	recurs(tt, 2, 0, 0);
+	free(candikeys);
+	free(tt);
 }
