@@ -1,0 +1,18 @@
+# 입력, 출력, 제약조건
+
+입력: 서식지정자 s, d, c가 포함된 문자열, 변수
+
+출력: %개수만큼 증가된 int를 출력되어야 한다.
+
+제약조건:
+Allowed functions: fgetc, ungetc, ferror, feof, isspace, isdigit, stdin, va_start, va_arg, va_copy, va_end
+
+# 유추
+
+이미 짜여진 구조가 있는 문제기에 그것을 가지고 코딩한다.
+
+# 모듈화
+
+이미 짜여진 구조가 있는 문제기에 그것을 가지고 코딩한다.
+
+

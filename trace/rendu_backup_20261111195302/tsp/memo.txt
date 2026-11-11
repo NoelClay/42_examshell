@@ -1,0 +1,29 @@
+# 입,출,제
+
+입력: 표준 입력으로 "숫자, 숫자\n" 가 주어짐. x,y 좌표임. 도시한개의 좌표를 의미
+
+출력: 가장 최적의 순회 길이를 출력\N
+
+제약조건: 
+Allowed functions: write, sqrtf, getline, fseek, fscanf, ferror, feof,
+fabsf, memcpy, fprintf, fclose, malloc, calloc, realloc, free, fopen,
+errno, stderr, stdin, stdout
+
+in order to use sqrtf, add -lm at the end of your compilation command.
+
+
+# 유추
+
+가장 짧은 길이를 찾는거라고 생각해서 BFS의 함정에 빠질 수도 있지만 이 또한 앞서 배운 permutations와 같은 맥락으로 DFS여야한다.
+
+왜냐하면 여기서의 방향의 갯수는 동서남북이 아니라, 도시 전체 개수 자체가 전부 방향이기 때문이다. 진짜로 팩토리얼만큼의 경우의 수가 메모리에 누적되기 때문에 BFS를 시도하지 말아야 된다는 생각이 든다.
+
+역시나 pos가 필요하다. 모든 도시. 그리고 알파벳 순서같은것은 또 없다. 따라서 그냥 시도하려고 했는데 다시 생각해보니, 시도한 도시는 다시 시도 안하게 하는게 그리 나쁜 아이디어가 아닌거 같다. 
+
+-> tsp.c를 보니 이미 껍데기와 모듈화가 구별되어 있었다. 그 것을 완성하다보니 여기서요구하는 구현은 path를 스왑 해가며 만들기를 원하는거 같아서 그렇게 구성한다.
+
+# 모듈
+
+1. 초기화
+
+2. 재귀
